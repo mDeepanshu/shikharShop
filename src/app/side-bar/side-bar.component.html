@@ -1,0 +1,126 @@
+<div class="sidebar-container">
+  <div class="sidebar-logo">Project Name</div>
+  <!-- <ul class="sidebar-navigation">
+      <li class="header">Navigation</li>
+      <li>
+        <a
+          routerLink="/"
+          [style.background-color]="onLink == '1' ? 'red' : ''"
+          (click)="linkChange(1)"
+        >
+          <i class="fa fa-home" aria-hidden="true"></i> Purchase
+        </a>
+      </li>
+      <li [hidden]="expired">
+        <a
+          routerLink="/ledger-component"
+          [style.background-color]="onLink == '2' ? 'red' : ''"
+          (click)="linkChange(2)"
+        >
+          <i class="fa fa-tachometer" aria-hidden="true"></i> Ledger
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/addParty-component"
+          [style.background-color]="onLink == '3' ? 'red' : ''"
+          (click)="linkChange(3)"
+        >
+          <i class="fa fa-users" aria-hidden="true"></i> Add party
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/crate-component"
+          [style.background-color]="onLink == '4' ? 'red' : ''"
+          (click)="linkChange(4)"
+        >
+          <i class="fa fa-cog" aria-hidden="true"></i> Crate
+        </a>
+      </li>
+      <li [hidden]="expired">
+        <a
+          routerLink="/partyCollection-component"
+          [style.background-color]="onLink == '5' ? 'red' : ''"
+          (click)="linkChange(5)"
+        >
+          <i class="fa fa-info-circle" aria-hidden="true"></i> Vyapari Vasuli
+        </a>
+      </li>
+      <li [hidden]="expired">
+        <a
+          routerLink="/viewParty-component"
+          [style.background-color]="onLink == '6' ? 'red' : ''"
+          (click)="linkChange(6)"
+        >
+          <i class="fa fa-info-circle" aria-hidden="true"></i>View Party
+        </a>
+      </li>
+      <li [hidden]="expired">
+        <a
+          routerLink="/viewPurchase-component"
+          [style.background-color]="onLink == '7' ? 'red' : ''"
+          (click)="linkChange(7)"
+        >
+          <i class="fa fa-info-circle" aria-hidden="true"></i>View Purchase
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/sell-component"
+          [style.background-color]="onLink == '8' ? 'red' : ''"
+          (click)="linkChange(8)"
+        >
+          <i class="fa fa-info-circle" aria-hidden="true"></i>Sell
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/TroublersComponent"
+          [style.background-color]="onLink == '9' ? 'red' : ''"
+          (click)="linkChange(9)"
+        >
+          <i class="fa fa-info-circle" aria-hidden="true"></i>Troublers</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/TodaysSellComponent"
+          [style.background-color]="onLink == '10' ? 'red' : ''"
+          (click)="linkChange(10)"
+        >
+          <i class="fa fa-info-circle" aria-hidden="true"></i>Today`s Sell</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/TodaysVasuliComponent"
+          [style.background-color]="onLink == '11' ? 'red' : ''"
+          (click)="linkChange(11)"
+        >
+          <i class="fa fa-info-circle" aria-hidden="true"></i>Today`s Vasuli</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/ItemsComponent"
+          [style.background-color]="onLink == '12' ? 'red' : ''"
+          (click)="linkChange(12)"
+        >
+          <i class="fa fa-info-circle" aria-hidden="true"></i>Items</a
+        >
+      </li>
+    </ul> -->
+  <ul class="sidebar-navigation">
+    <li *ngFor="let hero of routesArray; index as i">
+      <a
+        routerLink="{{ hero }}"
+        [style.background-color]="onLink == i ? 'red' : ''"
+        (click)="linkChange(i)"
+      >
+        <i class="fa fa-info-circle" aria-hidden="true"></i>{{ capital[i] }}</a
+      >
+    </li>
+  </ul>
+  <!--  -->
+</div>
