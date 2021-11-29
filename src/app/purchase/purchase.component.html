@@ -1,1 +1,231 @@
-<p>purchase works!</p>
+<div class="heading">PURCHASE</div>
+<hr />
+<div class="container">
+  <form
+    [formGroup]="purchaseForm"
+    (ngSubmit)="onSubmit()"
+    (keydown.enter)="$event.preventDefault()"
+    #aForm
+  >
+    <div class="row justify-content-between">
+      <!-- <div class="col-10"> -->
+      <div class="col-10">
+        <div class="row">
+          <div class="col">
+            <!-- <div class="input-group mb-3">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>PARTY NAME</mat-label>
+                <input
+                  placeholder="ITEM NAME"
+                  type="text"
+                  #username
+                  (input)="partyName(username.value)"
+                  matInput
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                    *ngFor="let option of partyOptions"
+                    (onSelectionChange)="onPartySelect($event, option._id)"
+                    [value]="option.name"
+                  >
+                    {{ option.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div> -->
+          </div>
+        </div>
+        <div class="row">
+          <!-- <div class="col"> -->
+          <!-- <div class="input-group mb-3">
+              <mat-form-field style="width: 100%">
+                <mat-label>ITEM NAME</mat-label>
+                <input
+                  style="height: 32px"
+                  id="Item"
+                  placeholder="ITEM NAME"
+                  #itemname
+                  (input)="itemName(itemname.value)"
+                  matInput
+                  [matAutocomplete]="autoTwo"
+                />
+                <mat-autocomplete #autoTwo="matAutocomplete">
+                  <mat-option
+                    *ngFor="let option of itemOptions"
+                    [value]="option.itemName"
+                  >
+                    {{ option.itemName }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div> -->
+          <!-- <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Number</mat-label>
+              <input
+                type="text"
+                aria-label="Number"
+                matInput
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option
+                  *ngFor="let option of itemOptions"
+                  [value]="option.itemName"
+                >
+                  {{ option.itemName }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field> -->
+          <!-- </div> -->
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input
+                class="form-control"
+                type="text"
+                formControlName="item_name"
+                #itemname
+                id="item_name"
+                (input)="itemName(itemname.value)"
+              />
+              <label for="floatingInput">Item Name</label>
+            </div>
+            <div class="suggestions" *ngIf="itemOptions.length">
+              <p *ngFor="let s of itemOptions">{{ s }}</p>
+            </div>
+          </div>
+          <!-- <div class="col">
+            <div class="form-floating mb-3">
+              <input
+                class="form-control"
+                type="number"
+                formControlName="bag"
+                id="Bag"
+              />
+              <label for="floatingInput">Bag</label>
+            </div>
+          </div> -->
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input
+                class="form-control"
+                type="number"
+                formControlName="rate"
+                id="Rate"
+              />
+              <label for="floatingInput">Rate</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input
+                class="form-control"
+                formControlName="quantity"
+                id="Quantity"
+              />
+              <label for="floatingInput" type="number">Quantity</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <button type="button" (click)="addNew()" class="btn btn-warning">
+            Add
+          </button>
+        </div>
+        <hr />
+        <div class="row">
+          <table #table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">ITEM</th>
+                <th scope="col">QUANTITY</th>
+                <th scope="col">RATE</th>
+                <th scope="col">TOTAL</th>
+                <th scope="col">REMOVE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of tableArr; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ item.item_name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.rate }}</td>
+                <td>{{ item.quantity * item.rate }}</td>
+                <td>
+                  <button
+                    (click)="removeItem(i)"
+                    mat-mini-fab
+                    class="matButton"
+                    color="primary"
+                    type="button"
+                  >
+                    <mat-icon class="material-icons">delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row" style="margin-top: 30mm">
+          <div class="col">
+            <label class="form-label">Total Expense</label>
+            <input
+              type="number"
+              formControlName="to_exp"
+              class="form-control"
+            />
+          </div>
+          <!-- <div class="col">
+            <label class="form-label">Bill Total</label>
+            <input
+              type="text"
+              formControlName="bill_total"
+              class="form-control"
+              ng-disabled="solar"
+            />
+          </div> -->
+          <!-- <div class="col">
+            <label class="form-label">Net Amount</label>
+            <input
+              type="text"
+              formControlName="net_amount"
+              class="form-control"
+            />
+          </div> -->
+        </div>
+      </div>
+      <!-- </div> -->
+      <div class="col-2">
+        <div
+          class="row"
+          style="margin-top: 80mm; margin-left: 1px; width: 50mm"
+        >
+          <button
+            type="button"
+            (click)="calculate()"
+            class="btn btn-primary"
+            [disabled]="!purchaseForm.valid"
+          >
+            Calculate
+          </button>
+        </div>
+        <div class="row" class="sideButtons">
+          <button type="submit" class="btn btn-primary" style="width: 50mm">
+            Save and Print
+          </button>
+        </div>
+        <div class="row" class="sideButtons">
+          <button
+            type="button"
+            (click)="resetForm()"
+            class="btn btn-primary"
+            style="width: 50mm"
+          >
+            Discard\New
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
