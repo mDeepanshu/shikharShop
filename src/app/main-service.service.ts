@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResponseType } from './models/responseType';
+import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MainServiceService {
-  constructor(private http: HttpClient) {}
-  public url: string = 'http://localhost:3000';
-
+  constructor(private http: HttpClient, public dialog: MatDialog) {}
+  public url: string = 'https://cafe-hoshangabad.herokuapp.com';
+  // 'https://cafe-hoshangabad.herokuapp.com'
+  // 'http://localhost:3000'
   autoCompleteItemName(keyword: any) {
     return new Promise((response, reject) => {
       this.http
@@ -28,10 +31,10 @@ export class MainServiceService {
     });
   }
 
-  addNewItem(itemName: String) {
+  addNewItem(itemName: String, rate: Number) {
     return new Promise((response, reject) => {
       this.http
-        .post(`${this.url}/item/add_new`, { itemName: itemName })
+        .post(`${this.url}/item/add_new`, { itemName: itemName, rate: rate })
         .subscribe((responseData: any) => {
           response(responseData.message);
           // let isError = this.checkForErr(
@@ -45,5 +48,30 @@ export class MainServiceService {
           // }
         });
     });
+  }
+  addPurchase(body) {
+    return new Promise((response, reject) => {
+      this.http
+        .put(`${this.url}/bill/add_new`, body)
+        .subscribe((responseData: ResponseType) => {
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
+        });
+    });
+  }
+  checkForErr(statusCode, message) {
+    if (statusCode != 200) {
+      this.dialog.open(ErrMsgModuleComponent, { data: message });
+      return true;
+    } else {
+      return false;
+    }
   }
 }

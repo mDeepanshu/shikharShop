@@ -32,7 +32,7 @@ export class AddItemComponent implements OnInit {
   onSaveForm() {
     // this.Party = this.projectForm.value;
     this.mainService
-      .addNewItem(this.projectForm.value.itemname)
+      .addNewItem(this.projectForm.value.itemname, this.projectForm.value.rate)
       .then((data) => {
         this._snackBar.open('Item Saved', 'Close');
         this.projectForm.reset();

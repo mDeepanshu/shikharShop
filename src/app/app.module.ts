@@ -13,11 +13,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 //
 import { PurchaseComponent } from './purchase/purchase.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { CheckBillsComponent } from './check-bills/check-bills.component';
+import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
 
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
@@ -32,6 +38,7 @@ const routes: Routes = [
     PurchaseComponent,
     AddItemComponent,
     CheckBillsComponent,
+    ErrMsgModuleComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,13 +49,17 @@ const routes: Routes = [
     HttpClientModule,
     MatAutocompleteModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTabsModule,
     ReactiveFormsModule,
     FormsModule,
     MatIconModule,
+    MatDialogModule,
     MatInputModule,
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

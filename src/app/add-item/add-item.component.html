@@ -1,6 +1,6 @@
 <div class="heading">ITEMS</div>
 <hr />
-<div class="firstDiv">
+<div class="firstDiv constantForm">
   <form class="mainForm" [formGroup]="projectForm" (ngSubmit)="onSaveForm()">
     <div class="row">
       <div class="col">
@@ -10,6 +10,7 @@
               <input
                 type="text"
                 placeholder="ITEM NAME"
+                style="height: 33px"
                 #itemname
                 (input)="itemName(itemname.value)"
                 formControlName="itemname"
