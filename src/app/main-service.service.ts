@@ -74,4 +74,21 @@ export class MainServiceService {
       return false;
     }
   }
+  getBillbyDate(from, till) {
+    return new Promise((response, reject) => {
+      this.http
+        .get(`${this.url}/bill/by_date_range?from_date=${from}&to_date=${till}`)
+        .subscribe((responseData: ResponseType) => {
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
+        });
+    });
+  }
 }
