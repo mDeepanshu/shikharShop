@@ -14,7 +14,7 @@ export class CheckBillsComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {}
   campaignOne: FormGroup;
-
+  array;
   ngOnInit() {
     this.campaignOne = new FormGroup({
       start: new FormControl(),
@@ -26,6 +26,7 @@ export class CheckBillsComponent implements OnInit {
       .getBillbyDate(this.campaignOne.value.start, this.campaignOne.value.end)
       .then((data) => {
         // this._snackBar.open('Bill Saved', 'Close');
+        this.array = data;
         console.log(data);
       });
   }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ResponseType } from './models/responseType';
 import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
 import { MatDialog } from '@angular/material/dialog';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -78,6 +79,20 @@ export class MainServiceService {
     return new Promise((response, reject) => {
       this.http
         .get(`${this.url}/bill/by_date_range?from_date=${from}&to_date=${till}`)
+        .pipe(
+          map((resData: ResponseType) => {
+            for (let i = 0; i < resData.message.length; i++) {
+              if (resData.message[i].date != undefined) {
+                console.log(resData.message[i].date);
+                let replaceTwo = new Date(resData.message[i].date);
+                resData.message[i].date = `${replaceTwo.getDate()} / ${
+                  Number(replaceTwo.getMonth()) + 1
+                } / ${replaceTwo.getFullYear()}`;
+              }
+            }
+            return resData;
+          })
+        )
         .subscribe((responseData: ResponseType) => {
           let isError = this.checkForErr(
             responseData.status,

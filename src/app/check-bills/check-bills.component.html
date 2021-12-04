@@ -24,4 +24,23 @@
       </button>
     </div>
   </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Date</th>
+          <th scope="col">Amount</th>
+          <!-- <th scope="col">Handle</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let option of array; let index = index">
+          <th scope="row">{{ index + 1 }}</th>
+          <td>{{ option.date }}</td>
+          <td>{{ option.amount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
