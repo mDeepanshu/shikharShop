@@ -10,6 +10,8 @@ import { PurchaseTable } from '../models/purchaseTable.model';
 import { MainServiceService } from '../main-service.service';
 import { Purchase } from '../models/purchase.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmComponentComponent } from '../confirm-component/confirm-component.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-purchase',
@@ -19,7 +21,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PurchaseComponent implements OnInit {
   constructor(
     private mainService: MainServiceService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {}
   @ViewChild('tableLabel') tableLabel: ElementRef;
 
@@ -60,31 +63,35 @@ export class PurchaseComponent implements OnInit {
   }
   onSubmit() {
     this.purchaseDetail = {
-      bill_no: Date.now().toString(36),
+      billNo: `${Date.now().toString(36)}`,
       date: new Date(),
       items: this.arraySqr[this.selected.value],
       amount: this.amount,
     };
-    console.log(this.purchaseDetail);
-    // this.purchaseDetail.items = this.arraySqr[this.selected.value];
-    // let obj = {
-    //   bill_no: '',
-    //   date: new Date(),
-    // };
-    // Object.assign(obj, this.purchaseDetail);
-    // obj.bill_no = Date.now().toString(36);
-    // console.log(obj);
-    this.mainService.addPurchase(this.purchaseDetail).then((data) => {
-      this._snackBar.open('Bill Saved', 'Close');
+    const dialogRef = this.dialog.open(ConfirmComponentComponent, {
+      width: '550px',
+      height: '300px',
+      data: this.purchaseDetail,
     });
-    // this.printIt();
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      // this.animal = result;
+      this.mainService.addPurchase(this.purchaseDetail).then((data) => {
+        this._snackBar.open('Bill Saved', 'Close');
+      });
+    });
   }
   calculate() {
     // this.purchaseForm.patchValue({
     //     to_exp: total,
     // });
   }
-  resetForm() {}
+  resetForm() {
+    this.purchaseForm.patchValue({
+      item_name: null,
+      rate: null,
+    });
+  }
   partyName(name) {}
   onPartySelect(rate) {
     console.log(rate);

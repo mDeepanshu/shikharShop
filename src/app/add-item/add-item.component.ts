@@ -39,7 +39,7 @@ export class AddItemComponent implements OnInit {
       });
   }
   resetForm() {
-    // this.projectForm.reset();
+    this.projectForm.reset();
   }
   itemName(val: any) {
     clearTimeout(this.timer);

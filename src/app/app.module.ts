@@ -24,6 +24,7 @@ import { PurchaseComponent } from './purchase/purchase.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { CheckBillsComponent } from './check-bills/check-bills.component';
 import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
+import { ConfirmComponentComponent } from './confirm-component/confirm-component.component';
 
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
     AddItemComponent,
     CheckBillsComponent,
     ErrMsgModuleComponent,
+    ConfirmComponentComponent,
   ],
   imports: [
     BrowserModule,
