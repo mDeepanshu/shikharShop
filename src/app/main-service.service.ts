@@ -14,6 +14,8 @@ export class MainServiceService {
   public url: string = 'https://cafe-hoshangabad.herokuapp.com';
   printArray = new Subject<any>();
   toPrintKot = new Subject<boolean>();
+  toPrintBill = new Subject<boolean>();
+  kotPrintArray = new Subject<any>();
   // 'https://cafe-hoshangabad.herokuapp.com'
   // 'http://localhost:3000'
   autoCompleteItemName(keyword: any) {

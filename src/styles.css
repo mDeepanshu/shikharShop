@@ -32,12 +32,12 @@ input::-webkit-inner-spin-button {
   margin-top: 20px;
   font-size: large;
 }
-app-print-page {
+/* app-print-page {
   display: none;
 }
 app-print-kot {
   display: none;
-}
+} */
 
 @media print {
   app-print-page {

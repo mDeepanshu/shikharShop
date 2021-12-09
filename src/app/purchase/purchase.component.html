@@ -103,7 +103,7 @@
       </div>
     </div>
     <div class="col-2 secondCol">
-      <div class="row">
+      <div class="row" *ngIf="false">
         <button
           type="button"
           class="btn btn-primary sideButtons"
@@ -195,7 +195,8 @@
                 type="checkbox"
                 value=""
                 id="flexCheckDefault"
-                [checked]="kotPrint[i]"
+                [checked]="kotPrint[selected.value][i]"
+                (change)="checkChange(i)"
               />
             </td>
           </tr>

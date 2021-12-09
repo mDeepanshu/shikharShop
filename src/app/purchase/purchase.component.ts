@@ -29,7 +29,7 @@ export class PurchaseComponent implements OnInit {
   purchaseForm: FormGroup;
   selected = new FormControl(0);
   amount = 0;
-  kotPrint = [];
+  kotPrint: any[][] = [[], [], []];
   public timer: any;
   partyOptions: any;
   public purchaseDetail: Purchase;
@@ -47,7 +47,7 @@ export class PurchaseComponent implements OnInit {
     });
   }
   addNew() {
-    this.kotPrint.push(true);
+    this.kotPrint[this.selected.value].push(true);
     this.arraySqr[this.selected.value].push(this.purchaseForm.value);
     let total =
       this.amount +
@@ -81,9 +81,14 @@ export class PurchaseComponent implements OnInit {
         this.mainService.toPrintKot.next(false);
         this.mainService.addPurchase(this.purchaseDetail).then((data) => {
           window.print();
+          this.mainService.toPrintKot.next(true);
         });
       }
     });
+  }
+  checkChange(i) {
+    this.kotPrint[this.selected.value][i] =
+      !this.kotPrint[this.selected.value][i];
   }
   resetForm() {
     this.purchaseForm.patchValue({
@@ -140,12 +145,22 @@ export class PurchaseComponent implements OnInit {
     this.tabs[this.tabs.length - 1] = name;
   }
   printKot() {
-    for (let i = 0; i < this.kotPrint.length; i++) {
-      this.kotPrint[i] = false;
+    this.mainService.toPrintBill.next(false);
+    let kotArray = [];
+    for (let i = 0; i < this.arraySqr[this.selected.value].length; i++) {
+      if (this.kotPrint[this.selected.value][i] == true) {
+        kotArray.push(this.arraySqr[this.selected.value][i]);
+      }
     }
-    this.mainService.toPrintKot.next(true);
+    console.log('kotArray', kotArray);
+    this.mainService.kotPrintArray.next(kotArray);
+    // this.mainService.kotPrintArray.observed
+    for (let i = 0; i < this.kotPrint[this.selected.value].length; i++) {
+      this.kotPrint[this.selected.value][i] = false;
+    }
     setTimeout(() => {
       window.print();
-    }, 0);
+      this.mainService.toPrintBill.next(true);
+    }, 2000);
   }
 }

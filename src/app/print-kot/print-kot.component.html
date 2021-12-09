@@ -1,6 +1,13 @@
-<p>print-kot works!</p>
-<hr />
-<hr />
-<hr />
-<hr />
-<hr />
+Item------------------Quantity<br />------------------------------------
+<ul style="list-style-type: none">
+  <li *ngFor="let option of itemDetails; index as i">
+    <div class="row justify-content-md-left">
+      <div class="col-1">
+        {{ option.item_name }}
+      </div>
+      <div class="col-1">
+        {{ option.quantity }}
+      </div>
+    </div>
+  </li>
+</ul>

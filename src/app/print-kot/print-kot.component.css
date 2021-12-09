@@ -1,0 +1,16 @@
+/* .headItems {
+  margin-left: 10mm;
+  font-size: large;
+}
+.bodydiv {
+  margin-left: 4px;
+} */
+.itemname {
+  /* position: absolute; */
+  left: 0px;
+  align-content: flex-start;
+}
+.qty {
+  position: absolute;
+  left: 100px;
+}
