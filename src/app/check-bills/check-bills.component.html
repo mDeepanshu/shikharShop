@@ -29,15 +29,17 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Date</th>
-          <th scope="col">Amount</th>
+          <th scope="col">ITEM NAME</th>
+          <th scope="col">QUANTITY</th>
+          <th scope="col">AMOUNT</th>
           <!-- <th scope="col">Handle</th> -->
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let option of array; let index = index">
           <th scope="row">{{ index + 1 }}</th>
-          <td>{{ option.date }}</td>
+          <td>{{ option.item_name }}</td>
+          <td>{{ option.quantity }}</td>
           <td>{{ option.amount }}</td>
         </tr>
       </tbody>

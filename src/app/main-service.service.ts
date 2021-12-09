@@ -4,6 +4,7 @@ import { ResponseType } from './models/responseType';
 import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,8 @@ import { map } from 'rxjs/operators';
 export class MainServiceService {
   constructor(private http: HttpClient, public dialog: MatDialog) {}
   public url: string = 'https://cafe-hoshangabad.herokuapp.com';
+  printArray = new Subject<any>();
+  toPrintKot = new Subject<boolean>();
   // 'https://cafe-hoshangabad.herokuapp.com'
   // 'http://localhost:3000'
   autoCompleteItemName(keyword: any) {
@@ -78,7 +81,9 @@ export class MainServiceService {
   getBillbyDate(from, till) {
     return new Promise((response, reject) => {
       this.http
-        .get(`${this.url}/bill/by_date_range?from_date=${from}&to_date=${till}`)
+        .get(
+          `${this.url}/item_orders/among_dates?from_date=${from}&to_date=${till}`
+        )
         .pipe(
           map((resData: ResponseType) => {
             for (let i = 0; i < resData.message.length; i++) {

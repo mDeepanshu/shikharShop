@@ -1,0 +1,26 @@
+<p class="headItems"><b> Food Costa!</b></p>
+<p class="headItems"><b>neafaras lasdfk</b></p>
+------------------------------------------------- <br />
+<div class="div bodydiv">
+  Date:{{ date }}
+  <hr />
+  Item--------------Quantity---Price
+  <ul style="list-style-type: none">
+    <li *ngFor="let option of itemDetails; index as i">
+      <div class="row justify-content-md-left">
+        <div class="col-1 itemname" style="top: 20 * index px">
+          {{ option.item_name }}
+        </div>
+        <div class="col-1" style="top: 20 * index px">
+          {{ option.quantity }}
+        </div>
+        <div class="col-1" style="top: 20 * index px">{{ option.rate }}</div>
+      </div>
+    </li>
+  </ul>
+  ------------------------------------------------- <br />
+  Total Qty:{{ total_qua }} Sub Total:{{ sub_total }}
+  <br />------------------------------------------------- <br />
+  <b>Grand Total</b>:{{ total }}
+  <br />------------------------------------------------- <br />
+</div>

@@ -29,6 +29,7 @@ export class PurchaseComponent implements OnInit {
   purchaseForm: FormGroup;
   selected = new FormControl(0);
   amount = 0;
+  kotPrint = [];
   public timer: any;
   partyOptions: any;
   public purchaseDetail: Purchase;
@@ -46,6 +47,7 @@ export class PurchaseComponent implements OnInit {
     });
   }
   addNew() {
+    this.kotPrint.push(true);
     this.arraySqr[this.selected.value].push(this.purchaseForm.value);
     let total =
       this.amount +
@@ -68,23 +70,20 @@ export class PurchaseComponent implements OnInit {
       items: this.arraySqr[this.selected.value],
       amount: this.amount,
     };
+    this.mainService.printArray.next(this.purchaseDetail);
     const dialogRef = this.dialog.open(ConfirmComponentComponent, {
       width: '550px',
       height: '300px',
       data: this.purchaseDetail,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      // this.animal = result;
-      this.mainService.addPurchase(this.purchaseDetail).then((data) => {
-        this._snackBar.open('Bill Saved', 'Close');
-      });
+      if (result) {
+        this.mainService.toPrintKot.next(false);
+        this.mainService.addPurchase(this.purchaseDetail).then((data) => {
+          window.print();
+        });
+      }
     });
-  }
-  calculate() {
-    // this.purchaseForm.patchValue({
-    //     to_exp: total,
-    // });
   }
   resetForm() {
     this.purchaseForm.patchValue({
@@ -92,7 +91,6 @@ export class PurchaseComponent implements OnInit {
       rate: null,
     });
   }
-  partyName(name) {}
   onPartySelect(rate) {
     console.log(rate);
     this.purchaseForm.patchValue({
@@ -140,5 +138,14 @@ export class PurchaseComponent implements OnInit {
   }
   changeTabName(name) {
     this.tabs[this.tabs.length - 1] = name;
+  }
+  printKot() {
+    for (let i = 0; i < this.kotPrint.length; i++) {
+      this.kotPrint[i] = false;
+    }
+    this.mainService.toPrintKot.next(true);
+    setTimeout(() => {
+      window.print();
+    }, 0);
   }
 }

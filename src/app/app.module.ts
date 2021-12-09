@@ -25,11 +25,15 @@ import { AddItemComponent } from './add-item/add-item.component';
 import { CheckBillsComponent } from './check-bills/check-bills.component';
 import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component';
 import { ConfirmComponentComponent } from './confirm-component/confirm-component.component';
+import { HomeDeliveryComponent } from './home-delivery/home-delivery.component';
+import { PrintPageComponent } from './print-page/print-page.component';
+import { PrintKotComponent } from './print-kot/print-kot.component';
 
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
   { path: 'additem', component: AddItemComponent },
   { path: 'checkBills', component: CheckBillsComponent },
+  { path: 'homeDelivery', component: HomeDeliveryComponent },
 ];
 
 @NgModule({
@@ -41,6 +45,9 @@ const routes: Routes = [
     CheckBillsComponent,
     ErrMsgModuleComponent,
     ConfirmComponentComponent,
+    HomeDeliveryComponent,
+    PrintPageComponent,
+    PrintKotComponent,
   ],
   imports: [
     BrowserModule,
