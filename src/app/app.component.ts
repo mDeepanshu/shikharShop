@@ -14,11 +14,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.mainService.toPrintKot.subscribe((value) => {
       this.toPrintKot = value;
-      console.log(this.toPrintKot);
     });
     this.mainService.toPrintBill.subscribe((value) => {
       this.toPrintBill = value;
-      console.log(this.toPrintKot);
     });
   }
 }

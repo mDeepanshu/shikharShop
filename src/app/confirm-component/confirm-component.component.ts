@@ -10,11 +10,24 @@ export class ConfirmComponentComponent implements OnInit {
     public dialogRef: MatDialogRef<ConfirmComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+  radioValue;
+  initAmount;
   ngOnInit() {
     console.log(this.data);
+    this.initAmount = this.data.amount;
   }
   onNoClick(): void {
     console.log(this.data);
     this.dialogRef.close();
+  }
+  radioChange(val) {
+    this.radioValue = val;
+  }
+  onValInp(val) {
+    if (this.radioValue == 'flat') {
+      this.data.amount = this.initAmount - val;
+    } else if (this.radioValue == 'percent') {
+      this.data.amount = this.initAmount - (val / 100) * this.initAmount;
+    }
   }
 }

@@ -9,7 +9,7 @@
           class="form-check-input"
           type="radio"
           name="inlineRadioOptions"
-          id="inlineRadio1"
+          (change)="radioChange('percent')"
           value="option1"
         />
         <label class="form-check-label" for="inlineRadio1">PERCENT</label>
@@ -19,14 +19,19 @@
           class="form-check-input"
           type="radio"
           name="inlineRadioOptions"
-          id="inlineRadio2"
+          (change)="radioChange('flat')"
           value="option2"
         />
         <label class="form-check-label" for="inlineRadio2">FLAT</label>
       </div>
     </div>
     <div class="col">
-      <input type="number" class="form-control" />
+      <input
+        type="number"
+        (input)="onValInp(finalAmount.value)"
+        #finalAmount
+        class="form-control"
+      />
     </div>
   </div>
   <div class="row marTop">

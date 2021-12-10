@@ -35,6 +35,7 @@ export class PurchaseComponent implements OnInit {
   public purchaseDetail: Purchase;
   itemOptions: any[] = [];
   arraySqr: any[][] = [[], [], []];
+  pickUp=0
   // tableArr: PurchaseTable[] = [];
   solar: boolean = true;
   tabs = ['1', '2', '3'];
@@ -138,8 +139,10 @@ export class PurchaseComponent implements OnInit {
 
     // }
   }
-  removeTab(index) {
-    this.tabs.splice(index, 1);
+  removeTab() {
+    // if (this.selected.value>1) {
+      this.tabs.splice(this.selected.value, 1);
+    // }
   }
   changeTabName(name) {
     this.tabs[this.tabs.length - 1] = name;
@@ -162,5 +165,12 @@ export class PurchaseComponent implements OnInit {
       window.print();
       this.mainService.toPrintBill.next(true);
     }, 2000);
+  }
+  newPickup(){
+    this.tabs.push('PICK UP'+`${this.pickUp + 1}`);
+    this.arraySqr.push([]);
+    this.selected.setValue(this.tabs.length - 1);
+    this.tableLabel.nativeElement.focus();
+    this.pickUp++
   }
 }

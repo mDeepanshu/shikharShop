@@ -20,8 +20,8 @@ export class SideBarComponent implements OnInit {
   onElement = 0;
   @ViewChild('aForm') aForm: ElementRef | undefined;
   constructor(private _snackBar: MatSnackBar, private router: Router) {}
-  routesArray = ['', 'additem', 'checkBills', 'homeDelivery'];
-  capital = ['PURCHASE', 'ADD ITEM', 'CHECK BILL`S', 'HOME DELIVERY'];
+  routesArray = ['', 'additem', 'checkBills'];
+  capital = ['PURCHASE', 'ADD ITEM', 'CHECK BILL`S'];
   ngOnInit() {
     const d = new Date();
     d.setMonth(11);
