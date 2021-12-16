@@ -32,7 +32,7 @@ export class ConfirmComponentComponent implements OnInit {
   onValInp(val) {
     if (this.radioValue == 'flat') {
       this.confirmPafeInfo.discount = this.initAmount - val;
-      this.confirmPafeInfo.discountType = 'rupees';
+      this.confirmPafeInfo.discountType = 'rs';
       this.confirmPafeInfo.discountAmount = val;
     } else if (this.radioValue == 'percent') {
       this.confirmPafeInfo.discount =

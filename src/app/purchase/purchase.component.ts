@@ -102,6 +102,7 @@ export class PurchaseComponent implements OnInit {
       !this.kotPrint[this.selected.value][i];
   }
   resetForm() {
+    this.arraySqr[this.selected.value] = [];
     this.purchaseForm.patchValue({
       item_name: null,
       rate: null,
