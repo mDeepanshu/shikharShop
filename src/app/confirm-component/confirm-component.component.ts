@@ -12,6 +12,11 @@ export class ConfirmComponentComponent implements OnInit {
   ) {}
   radioValue;
   initAmount;
+  confirmPafeInfo = {
+    discount: this.data.discount,
+    discountAmount: 0,
+    discountType: ' this.data.discountType',
+  };
   ngOnInit() {
     // console.log(this.data);
     this.initAmount = this.data.amount;
@@ -26,9 +31,14 @@ export class ConfirmComponentComponent implements OnInit {
   }
   onValInp(val) {
     if (this.radioValue == 'flat') {
-      this.data.discount = this.initAmount - val;
+      this.confirmPafeInfo.discount = this.initAmount - val;
+      this.confirmPafeInfo.discountType = 'rupees';
+      this.confirmPafeInfo.discountAmount = val;
     } else if (this.radioValue == 'percent') {
-      this.data.discount = this.initAmount - (val / 100) * this.initAmount;
+      this.confirmPafeInfo.discount =
+        this.initAmount - (val / 100) * this.initAmount;
+      this.confirmPafeInfo.discountType = '%';
+      this.confirmPafeInfo.discountAmount = val;
     }
   }
 }

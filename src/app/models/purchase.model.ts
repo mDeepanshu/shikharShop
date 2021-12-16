@@ -4,5 +4,7 @@ export interface Purchase {
   billNo: String;
   amount: Number;
   items: PurchaseTable[];
-  discount:Number
+  discount: Number;
+  discountAmount: Number;
+  discountType: String;
 }

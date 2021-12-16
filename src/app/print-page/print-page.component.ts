@@ -11,21 +11,27 @@ export class PrintPageComponent implements OnInit {
 
   d = new Date();
   date;
-  total_qua=0;
+  total_qua = 0;
   sub_total;
   total;
   itemDetails;
+  discountAmount = 0;
+  discountType = '';
   ngOnInit() {
     this.date = `${this.d.getDate()}/${
       this.d.getMonth() + 1
     }/${this.d.getFullYear()}`;
     this.mainService.printArray.subscribe((data) => {
       console.log(data);
+      if (data.discountAmount > 0) {
+        this.discountAmount = data.discountAmount;
+        this.discountType = data.discountType;
+      }
       this.itemDetails = data.items;
       this.sub_total = data.amount;
       this.total = data.discount;
       for (let i = 0; i < data.items.length; i++) {
-        this.total_qua+=data.items[i].quantity
+        this.total_qua += data.items[i].quantity;
       }
     });
   }

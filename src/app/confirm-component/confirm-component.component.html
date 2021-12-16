@@ -37,12 +37,16 @@
   <div class="row marTop">
     <div class="col">FINAL AMOUNT</div>
     <div class="col">
-      <input type="number" class="form-control" [(ngModel)]="data.discount" />
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="confirmPafeInfo.discount"
+      />
     </div>
   </div>
   <div class="row marTop">
     <div class="col">
-      <button class="btn btn-primary" [mat-dialog-close]="data.discount">
+      <button class="btn btn-primary" [mat-dialog-close]="confirmPafeInfo">
         OK
       </button>
     </div>

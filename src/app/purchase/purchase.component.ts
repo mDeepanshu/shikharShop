@@ -74,6 +74,8 @@ export class PurchaseComponent implements OnInit {
       items: this.arraySqr[this.selected.value],
       amount: this.amount[this.selected.value],
       discount: this.amount[this.selected.value],
+      discountAmount: 0,
+      discountType: '',
     };
     console.log(this.purchaseDetail);
     const dialogRef = this.dialog.open(ConfirmComponentComponent, {
@@ -83,9 +85,10 @@ export class PurchaseComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.purchaseDetail.discount = result;
+        this.purchaseDetail.discount = result.discount;
+        this.purchaseDetail.discountType = result.discountType;
+        this.purchaseDetail.discountAmount = result.discountAmount;
         this.mainService.printArray.next(this.purchaseDetail);
-        console.log(result);
         this.mainService.toPrintKot.next(false);
         this.mainService.addPurchase(this.purchaseDetail).then((data) => {
           window.print();

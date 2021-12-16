@@ -37,7 +37,10 @@
       <div class="col">Sub Total:{{ sub_total }}</div>
     </div>
     <br />-------------------------------------------------------------------
-    <b>Grand Total</b>:{{ total }}
+    <div class="row">
+      <div class="col"><b>Grand Total</b>:{{ total }}</div>
+      <div class="col">Discount:{{ discountAmount }}{{ discountType }}</div>
+    </div>
     <br />-------------------------------------------------------------------
     <br />
   </div>
