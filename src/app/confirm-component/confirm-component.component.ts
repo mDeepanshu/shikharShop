@@ -13,21 +13,22 @@ export class ConfirmComponentComponent implements OnInit {
   radioValue;
   initAmount;
   ngOnInit() {
-    console.log(this.data);
+    // console.log(this.data);
     this.initAmount = this.data.amount;
   }
   onNoClick(): void {
-    console.log(this.data);
+    // console.log(this.data);
     this.dialogRef.close();
   }
   radioChange(val) {
+    console.log(val);
     this.radioValue = val;
   }
   onValInp(val) {
     if (this.radioValue == 'flat') {
-      this.data.amount = this.initAmount - val;
+      this.data.discount = this.initAmount - val;
     } else if (this.radioValue == 'percent') {
-      this.data.amount = this.initAmount - (val / 100) * this.initAmount;
+      this.data.discount = this.initAmount - (val / 100) * this.initAmount;
     }
   }
 }

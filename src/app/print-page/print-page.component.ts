@@ -11,7 +11,7 @@ export class PrintPageComponent implements OnInit {
 
   d = new Date();
   date;
-  total_qua;
+  total_qua=0;
   sub_total;
   total;
   itemDetails;
@@ -22,7 +22,11 @@ export class PrintPageComponent implements OnInit {
     this.mainService.printArray.subscribe((data) => {
       console.log(data);
       this.itemDetails = data.items;
-      this.total = data.amount;
+      this.sub_total = data.amount;
+      this.total = data.discount;
+      for (let i = 0; i < data.items.length; i++) {
+        this.total_qua+=data.items[i].quantity
+      }
     });
   }
 }

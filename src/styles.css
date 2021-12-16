@@ -39,6 +39,7 @@ app-print-kot {
   display: none;
 }
 
+
 @media print {
   app-print-page {
     display: block;

@@ -27,7 +27,7 @@ export class CheckBillsComponent implements OnInit {
       .then((data) => {
         // this._snackBar.open('Bill Saved', 'Close');
         this.array = data;
-        console.log(data);
+        // console.log(data);
       });
   }
 }

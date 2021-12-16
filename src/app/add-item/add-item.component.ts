@@ -46,7 +46,7 @@ export class AddItemComponent implements OnInit {
     this.items = [];
     this.timer = setTimeout(() => {
       this.mainService.autoCompleteItemName(name).then((arr: any) => {
-        console.log('arrarrarr', arr);
+        // console.log('arrarrarr', arr);
         this.items = arr;
       });
     }, 500);

@@ -5,6 +5,10 @@
 .bodydiv {
   margin-left: 4px;
 } */
+.printdiv {
+  max-height: 50mm;
+}
+
 .itemname {
   /* position: absolute; */
   left: 0px;
@@ -13,4 +17,13 @@
 .qty {
   position: absolute;
   left: 100px;
+}
+.quantity {
+  margin-left: 110px;
+}
+.containdiv {
+  line-height: 80%;
+}
+.containdivNeg {
+  line-height: 110%;
 }

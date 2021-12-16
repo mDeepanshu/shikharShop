@@ -24,8 +24,9 @@ export class SideBarComponent implements OnInit {
   capital = ['PURCHASE', 'ADD ITEM', 'CHECK BILL`S'];
   ngOnInit() {
     const d = new Date();
-    d.setMonth(11);
+    d.setMonth(7);
     d.setDate(30);
+    d.setFullYear(2022)
     if (d.getTime() - this.date.getTime() <= 0) {
       this.expired = true;
       this._snackBar.open('Date Expired', 'Close');

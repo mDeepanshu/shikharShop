@@ -28,6 +28,7 @@ import { ConfirmComponentComponent } from './confirm-component/confirm-component
 import { HomeDeliveryComponent } from './home-delivery/home-delivery.component';
 import { PrintPageComponent } from './print-page/print-page.component';
 import { PrintKotComponent } from './print-kot/print-kot.component';
+import { MainHomeComponent } from './main-home/main-home.component';
 
 const routes: Routes = [
   { path: '', component: PurchaseComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
     HomeDeliveryComponent,
     PrintPageComponent,
     PrintKotComponent,
+    MainHomeComponent,
   ],
   imports: [
     BrowserModule,

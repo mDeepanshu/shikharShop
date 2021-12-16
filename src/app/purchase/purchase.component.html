@@ -28,12 +28,12 @@
         </div>
         <div class="col col-lg-2">
           <button
-          class="btn btn-primary"
-          (click)="newPickup()"
-          style="margin-top: 7px"
-        >
-          NEW PICK UP
-        </button>
+            class="btn btn-primary"
+            (click)="newPickup()"
+            style="margin-top: 7px"
+          >
+            NEW PICK UP
+          </button>
         </div>
       </div>
       <div class="row constantForm">
@@ -65,7 +65,9 @@
                           <mat-option
                             *ngFor="let option of itemOptions"
                             [value]="option.itemName"
-                            (onSelectionChange)="onPartySelect(option.rate)"
+                            (onSelectionChange)="
+                              onPartySelect(option.rate, $event)
+                            "
                           >
                             {{ option.itemName }}
                           </mat-option>
