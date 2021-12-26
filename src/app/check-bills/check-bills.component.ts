@@ -22,12 +22,13 @@ export class CheckBillsComponent implements OnInit {
     });
   }
   fetchBills() {
+    let r = new Date(this.campaignOne.value.end).getTime() + 86400000 - 1;
+    let tillDate = new Date(r);
     this.mainService
-      .getBillbyDate(this.campaignOne.value.start, this.campaignOne.value.end)
+      .getBillbyDate(this.campaignOne.value.start, tillDate)
       .then((data) => {
         // this._snackBar.open('Bill Saved', 'Close');
         this.array = data;
-        // console.log(data);
       });
   }
 }

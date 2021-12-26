@@ -23,16 +23,15 @@ export class MainServiceService {
       this.http
         .get(`${this.url}/item/autocomplete_name?keyword=${keyword}&limit=5`)
         .subscribe((responseData: any) => {
-          response(responseData.message);
-          // let isError = this.checkForErr(
-          //   responseData.status,
-          //   responseData.message
-          // );
-          // if (isError) {
-          //   reject('http request failed' + responseData.message);
-          // } else {
-          //   response(responseData.message);
-          // }
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
         });
     });
   }
@@ -42,16 +41,15 @@ export class MainServiceService {
       this.http
         .post(`${this.url}/item/add_new`, { itemName: itemName, rate: rate })
         .subscribe((responseData: any) => {
-          response(responseData.message);
-          // let isError = this.checkForErr(
-          //   responseData.status,
-          //   responseData.message
-          // );
-          // if (isError) {
-          //   reject('http request failed' + responseData.message);
-          // } else {
-          //   response(responseData.message);
-          // }
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
         });
     });
   }
@@ -80,12 +78,14 @@ export class MainServiceService {
       return false;
     }
   }
+  // ?from_date=${from}&to_date=${till}
   getBillbyDate(from, till) {
     return new Promise((response, reject) => {
       this.http
-        .get(
-          `${this.url}/item_orders/among_dates?from_date=${from}&to_date=${till}`
-        )
+        .post(`${this.url}/item_orders/among_dates`, {
+          from_date: from,
+          to_date: till,
+        })
         .pipe(
           map((resData: ResponseType) => {
             for (let i = 0; i < resData.message.length; i++) {
@@ -109,6 +109,7 @@ export class MainServiceService {
             reject('http request failed' + responseData.message);
           } else {
             response(responseData.message);
+            console.log(responseData.message);
           }
         });
     });

@@ -29,18 +29,22 @@ export class PurchaseComponent implements OnInit {
   @ViewChild('tableLabel') tableLabel: ElementRef;
 
   purchaseForm: FormGroup;
+  tabs = ['1', '2', '3'];
+  tabIndexing = {
+    table: [1, 2, 3],
+    pickup: [],
+  };
   selected = new FormControl(0);
   amount = [0, 0, 0];
+  //
   kotPrint: any[][] = [[], [], []];
+  arraySqr: any[][] = [[], [], []];
   public timer: any;
+  public timerTwo: any;
   partyOptions: any;
   public purchaseDetail: Purchase;
   itemOptions: any[] = [];
-  arraySqr: any[][] = [[], [], []];
-  pickUp = 0;
-  // tableArr: PurchaseTable[] = [];
-  solar: boolean = true;
-  tabs = ['1', '2', '3'];
+  //
   ngOnInit() {
     this.purchaseForm = new FormGroup({
       item_name: new FormControl(null, Validators.required),
@@ -56,7 +60,6 @@ export class PurchaseComponent implements OnInit {
     let total =
       this.amount[this.selected.value] +
       this.purchaseForm.value.rate * this.purchaseForm.value.quantity;
-    // console.log(total);
     // this.purchaseForm.patchValue({
     //   amount: total,
     // });
@@ -77,7 +80,6 @@ export class PurchaseComponent implements OnInit {
       discountAmount: 0,
       discountType: '',
     };
-    console.log(this.purchaseDetail);
     const dialogRef = this.dialog.open(ConfirmComponentComponent, {
       width: '550px',
       height: '300px',
@@ -110,7 +112,6 @@ export class PurchaseComponent implements OnInit {
   }
   onPartySelect(rate, event: any) {
     if (event.isUserInput) {
-      console.log(rate);
       this.purchaseForm.patchValue({
         rate: rate,
       });
@@ -121,7 +122,6 @@ export class PurchaseComponent implements OnInit {
     this.itemOptions = [];
     this.timer = setTimeout(() => {
       this.mainService.autoCompleteItemName(name).then((arr: any) => {
-        console.log(arr);
         this.itemOptions = arr;
       });
     }, 500);
@@ -131,37 +131,47 @@ export class PurchaseComponent implements OnInit {
       this.amount[this.selected.value] -
       this.arraySqr[this.selected.value][i].rate *
         this.arraySqr[this.selected.value][i].quantity;
-    console.log(
-      this.purchaseForm.value.to_exp,
-      this.arraySqr[this.selected.value][i].rate,
-      this.arraySqr[this.selected.value][i].quantity
-    );
-    // this.purchaseForm.patchValue({
-    //   to_exp: this.amount,
-    // });
-    //
     delete this.arraySqr[this.selected.value][i];
     this.arraySqr[this.selected.value].splice(i, 1);
   }
-  addTab() {
-    this.tabs.push(`${this.tabs.length + 1}`);
-    this.arraySqr.push([]);
-    this.kotPrint.push([]);
-    this.amount.push(0);
-    // if (selectAfterAdding) {
-    this.selected.setValue(this.tabs.length - 1);
+  addTab(type) {
     this.tableLabel.nativeElement.focus();
-
-    // }
+    let indx;
+    let dependent_value;
+    if (type == '') {
+      indx = this.rearrange_onAdd('table');
+      dependent_value = indx - 1;
+      this.tabs.splice(dependent_value, 0, `${indx}`);
+    } else {
+      indx = this.rearrange_onAdd('pickup');
+      dependent_value = indx - 1 + this.tabIndexing.table.length;
+      this.tabs.splice(dependent_value, 0, 'PICK UP ' + indx);
+    }
+    this.pushto_nece_array(dependent_value);
   }
   removeTab() {
-    // if (this.selected.value>1) {
-    this.tabs.splice(this.selected.value, 1);
-    this.amount.pop();
-    // }
+    if (this.tabs.length > 1) {
+      let pre_selected = this.selected.value;
+      if (this.tabs[this.selected.value].startsWith('PICK')) {
+        let pick_ind = Number(this.tabs[this.selected.value].split(' ')[2]);
+        this.rearrange_onRemove('pickup', pick_ind);
+      } else {
+        this.rearrange_onRemove('table', Number(this.tabs[pre_selected]));
+      }
+      this.arraySqr.splice(this.selected.value, 1);
+      this.kotPrint.splice(this.selected.value, 1);
+      this.tabs.splice(this.selected.value, 1);
+      this.amount.splice(this.selected.value, 1);
+    }
   }
   changeTabName(name) {
-    this.tabs[this.tabs.length - 1] = name;
+    this.tabs[this.selected.value] = name;
+    // clearTimeout(this.timerTwo);
+    // this.timerTwo = setTimeout(() => {
+    //  if (!isNaN(name)) {
+
+    //  }
+    // }, 500);
   }
   printKot() {
     this.mainService.toPrintBill.next(false);
@@ -183,11 +193,29 @@ export class PurchaseComponent implements OnInit {
       this.mainService.toPrintBill.next(true);
     }, 2000);
   }
-  newPickup() {
-    this.tabs.push('PICK UP' + `${this.pickUp + 1}`);
-    this.arraySqr.push([]);
-    this.selected.setValue(this.tabs.length - 1);
-    this.tableLabel.nativeElement.focus();
-    this.pickUp++;
+  rearrange_onRemove(type, pos) {
+    this.tabIndexing[type].forEach((element) => {
+      if (element == pos) {
+        const index = this.tabIndexing[type].indexOf(pos);
+        this.tabIndexing[type].splice(index, 1);
+      }
+    });
+  }
+  rearrange_onAdd(type) {
+    let _len = this.tabIndexing[type].length;
+    for (let i = 0; i < _len; i++) {
+      if (this.tabIndexing[type][i] != i + 1) {
+        this.tabIndexing[type].splice(i, 0, i + 1);
+        return i + 1;
+      }
+    }
+    this.tabIndexing[type].splice(_len, 0, _len + 1);
+    return _len + 1;
+  }
+  pushto_nece_array(indx) {
+    this.selected.setValue(indx);
+    this.arraySqr.splice(indx, 0, []);
+    this.kotPrint.splice(indx, 0, []);
+    this.amount.splice(indx, 0, 0);
   }
 }
