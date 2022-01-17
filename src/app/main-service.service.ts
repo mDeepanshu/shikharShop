@@ -5,17 +5,58 @@ import { ErrMsgModuleComponent } from './err-msg-module/err-msg-module.component
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Purchase } from './models/purchase.model';
+import { ConfirmComponentComponent } from './confirm-component/confirm-component.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MainServiceService {
   constructor(private http: HttpClient, public dialog: MatDialog) {}
-  public url: string = 'https://cafe-hoshangabad.herokuapp.com';
+  public url: string = 'http://localhost:3000';
+  // 'https://cafe-hoshangabad.herokuapp.com'
+  // 'http://localhost:3000'
   printArray = new Subject<any>();
   toPrintKot = new Subject<boolean>();
   toPrintBill = new Subject<boolean>();
   kotPrintArray = new Subject<any>();
+  login = new Subject<any>();
+  public purchaseDetail: Purchase;
+  selected = 0;
+  onLink = 0;
+  onSpace = 'indoor';
+  amount = {
+    indoor: [0, 0, 0],
+    outdoor: [0, 0, 0],
+    pickup: [0, 0, 0],
+    custom: [0],
+  };
+  //
+  parentTab = {
+    indoor: [1, 2, 3],
+    outdoor: [1, 2, 3],
+    pickup: [1, 2, 3],
+    custom: ['First'],
+  };
+  //
+  itemList_inSpace = {
+    indoor: {
+      kotPrint: [[], [], []],
+      arraySqr: [[], [], []],
+    },
+    outdoor: {
+      kotPrint: [[], [], []],
+      arraySqr: [[], [], []],
+    },
+    pickup: {
+      kotPrint: [[], [], []],
+      arraySqr: [[], [], []],
+    },
+    custom: {
+      kotPrint: [[], [], []],
+      arraySqr: [[], [], []],
+    },
+  };
   // 'https://cafe-hoshangabad.herokuapp.com'
   // 'http://localhost:3000'
   autoCompleteItemName(keyword: any) {
@@ -35,7 +76,23 @@ export class MainServiceService {
         });
     });
   }
-
+  makeLogin(pin) {
+    return new Promise((response, reject) => {
+      this.http
+        .get(`${this.url}/authorize?pin=${pin}`)
+        .subscribe((responseData: ResponseType) => {
+          let isError = this.checkForErr(
+            responseData.status,
+            responseData.message
+          );
+          if (isError) {
+            reject('http request failed' + responseData.message);
+          } else {
+            response(responseData.message);
+          }
+        });
+    });
+  }
   addNewItem(itemName: String, rate: Number) {
     return new Promise((response, reject) => {
       this.http
@@ -78,7 +135,6 @@ export class MainServiceService {
       return false;
     }
   }
-  // ?from_date=${from}&to_date=${till}
   getBillbyDate(from, till) {
     return new Promise((response, reject) => {
       this.http
@@ -112,6 +168,42 @@ export class MainServiceService {
             console.log(responseData.message);
           }
         });
+    });
+  }
+  save_and_print(onTab, onSpace) {
+    return new Promise((res, rej) => {
+      console.log(this.amount[onSpace][onTab]);
+      this.purchaseDetail = {
+        billNo: `${Date.now().toString(36)}`,
+        date: new Date(),
+        items: this.itemList_inSpace[onSpace].arraySqr[onTab],
+        amount: this.amount[onSpace][onTab],
+        discount: this.amount[onSpace][onTab],
+        discountAmount: 0,
+        discountType: '',
+      };
+      const dialogRef = this.dialog.open(ConfirmComponentComponent, {
+        width: '550px',
+        height: '200px',
+        data: this.purchaseDetail,
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.purchaseDetail.discount = result.discount;
+          this.purchaseDetail.discountType = result.discountType;
+          this.purchaseDetail.discountAmount = result.discountAmount;
+          this.printArray.next(this.purchaseDetail);
+          this.toPrintKot.next(false);
+          this.addPurchase(this.purchaseDetail).then((data) => {
+            this.amount[onSpace][onTab] = 0;
+            this.itemList_inSpace[onSpace].arraySqr[onTab] = [];
+            this.itemList_inSpace[onSpace].kotPrint[onTab] = [];
+            res('submitted');
+            window.print();
+            this.toPrintKot.next(true);
+          });
+        }
+      });
     });
   }
 }

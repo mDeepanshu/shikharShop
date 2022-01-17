@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-end">
+    <div class="col-1">
+      <button>
+        <mat-icon class="close_button" (click)="close()">close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    TABLE : {{ number }} <br />
+    TOTAL : {{ total }}
+  </div>
+  <div class="row rowtwo">
+    <div class="col-1 footBtn print">
+      <button>
+        <mat-icon (click)="print()">print</mat-icon>
+      </button>
+    </div>
+    <div class="col-1 footBtn">
+      <button>
+        <mat-icon (click)="view()">remove_red_eye</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <p class="timeActive">{{ timeActive }} Mins</p>
+  </div>
+</div>

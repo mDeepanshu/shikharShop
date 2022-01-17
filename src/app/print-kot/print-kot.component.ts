@@ -12,7 +12,9 @@ export class PrintKotComponent implements OnInit {
   date = new Date();
   timePrint;
   tableNumber;
+  space;
   ngOnInit() {
+    this.space = this.mainService.onSpace.slice(0, 2).toUpperCase();
     var hours = this.date.getHours();
     var minutes = `${this.date.getMinutes()}`;
     var ampm = hours >= 12 ? 'pm' : 'am';

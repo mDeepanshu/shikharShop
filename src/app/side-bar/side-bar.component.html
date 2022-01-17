@@ -4,10 +4,10 @@
     <li *ngFor="let hero of routesArray; index as i">
       <a
         routerLink="{{ hero }}"
-        [style.background-color]="onLink == i ? 'red' : ''"
+        [style.background-color]="mainService.onLink == i ? '#c0babc' : ''"
         (click)="linkChange(i)"
       >
-        <i class="fa fa-info-circle" aria-hidden="true"></i>{{ capital[i] }}</a
+        {{ capital[i] }}</a
       >
     </li>
     <li>

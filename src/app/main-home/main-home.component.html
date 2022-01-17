@@ -1,1 +1,120 @@
-<p>main-home works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="heading">
+        INDOOR
+        <mat-icon (click)="addTab('indoor')">add_circle_outline</mat-icon>
+      </div>
+      <hr />
+      <ul style="list-style-type: none">
+        <li
+          *ngFor="let option of mainService.parentTab.indoor; let index = index"
+        >
+          <app-table-card
+            [style.border]="
+              mainService.amount.indoor[index] > 0
+                ? '2px solid green'
+                : '2px solid red'
+            "
+            class="tableCard"
+            [number]="option"
+            [space]="'indoor'"
+            (clossing)="removeTab('indoor', $event)"
+          ></app-table-card>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="heading">
+        OUTDOOR
+        <mat-icon (click)="addTab('outdoor')">add_circle_outline</mat-icon>
+      </div>
+      <hr />
+      <ul style="list-style-type: none">
+        <li
+          *ngFor="
+            let option of mainService.parentTab.outdoor;
+            let index = index
+          "
+        >
+          <app-table-card
+            [style.border]="
+              mainService.amount.outdoor[index] > 0
+                ? '2px solid green'
+                : '2px solid red'
+            "
+            class="tableCard"
+            [number]="option"
+            [space]="'outdoor'"
+            (clossing)="removeTab('outdoor', $event)"
+          ></app-table-card>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row second">
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <div class="heading">
+            CUSTOM
+            <mat-icon (click)="addTab('custom')">add_circle_outline</mat-icon>
+          </div>
+        </div>
+        <div class="col">
+          <mat-form-field class="cus_label">
+            <mat-label>Custom Label</mat-label>
+            <input
+              type="text"
+              (input)="custom_label_change(label.value)"
+              #label
+              matInput
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <hr />
+      <ul style="list-style-type: none">
+        <li
+          *ngFor="let option of mainService.parentTab.custom; let index = index"
+        >
+          <app-table-card
+            [style.border]="
+              mainService.amount.custom[index] > 0
+                ? '2px solid green'
+                : '2px solid red'
+            "
+            class="tableCard"
+            [number]="mainService.parentTab.custom[index]"
+            [space]="'custom'"
+            (clossing)="removeTab('custom', $event)"
+          ></app-table-card>
+        </li>
+      </ul>
+    </div>
+    <div class="col pickupCol">
+      <div class="heading">
+        PICK UP
+        <mat-icon (click)="addTab('pickup')">add_circle_outline</mat-icon>
+      </div>
+      <hr />
+      <ul style="list-style-type: none">
+        <li
+          *ngFor="let option of mainService.parentTab.pickup; let index = index"
+        >
+          <app-table-card
+            [style.border]="
+              mainService.amount.pickup[index] > 0
+                ? '2px solid green'
+                : '2px solid red'
+            "
+            [number]="option"
+            [space]="'pickup'"
+            (clossing)="removeTab('pickup', $event)"
+            class="tableCard"
+          ></app-table-card>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

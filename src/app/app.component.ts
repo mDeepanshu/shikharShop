@@ -7,9 +7,10 @@ import { MainServiceService } from './main-service.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'ShikharShop';
+  title = 'Food Costa';
   toPrintKot = true;
   toPrintBill = true;
+  login = false;
   constructor(private mainService: MainServiceService) {}
   ngOnInit() {
     this.mainService.toPrintKot.subscribe((value) => {
@@ -17,6 +18,9 @@ export class AppComponent implements OnInit {
     });
     this.mainService.toPrintBill.subscribe((value) => {
       this.toPrintBill = value;
+    });
+    this.mainService.login.subscribe((value) => {
+      this.login = value;
     });
   }
 }

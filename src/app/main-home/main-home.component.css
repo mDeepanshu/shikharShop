@@ -1,0 +1,23 @@
+li {
+  float: left;
+  padding: 7px;
+  line-height: 130%;
+}
+
+.row {
+  line-height: 100%;
+}
+.cus_label {
+  background-color: oldlace;
+  border-radius: 10px;
+  padding: 2px;
+}
+.second {
+  margin-top: 4em;
+}
+.pickupCol {
+  margin-top: 13px;
+}
+.tableCard {
+  border: 2px solid rgb(148, 37, 37);
+}

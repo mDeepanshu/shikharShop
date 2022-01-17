@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  width: 8em;
+  height: 8.5em;
+  background-color: #eaeaea;
+  border-radius: 2mm;
+}
+
+.rowone {
+}
+.rowtwo {
+  margin-top: 5px;
+  width: 100%;
+}
+.close_button {
+  font-size: medium;
+  color: darkred;
+  margin-left: 1em;
+}
+.footBtn {
+  font-size: 1em;
+  size: 2mm;
+  border: none;
+  width: 1px;
+  padding-left: none;
+}
+.print {
+  margin-right: 10px;
+}
+.timeActive {
+  color: green;
+}

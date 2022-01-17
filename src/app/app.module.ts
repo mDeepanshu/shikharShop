@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
 //
 import { PurchaseComponent } from './purchase/purchase.component';
 import { AddItemComponent } from './add-item/add-item.component';
@@ -29,12 +30,14 @@ import { HomeDeliveryComponent } from './home-delivery/home-delivery.component';
 import { PrintPageComponent } from './print-page/print-page.component';
 import { PrintKotComponent } from './print-kot/print-kot.component';
 import { MainHomeComponent } from './main-home/main-home.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { TableCardComponent } from './table-card/table-card.component';
 
 const routes: Routes = [
-  { path: '', component: PurchaseComponent },
+  { path: 'purchase', component: PurchaseComponent },
   { path: 'additem', component: AddItemComponent },
   { path: 'checkBills', component: CheckBillsComponent },
-  { path: 'homeDelivery', component: HomeDeliveryComponent },
+  { path: '', component: MainHomeComponent },
 ];
 
 @NgModule({
@@ -50,6 +53,8 @@ const routes: Routes = [
     PrintPageComponent,
     PrintKotComponent,
     MainHomeComponent,
+    LoginPageComponent,
+    TableCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +71,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     MatIconModule,
+    MatSelectModule,
     MatDialogModule,
     MatInputModule,
   ],

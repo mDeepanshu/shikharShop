@@ -1,4 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-confirm-component',
@@ -10,6 +16,7 @@ export class ConfirmComponentComponent implements OnInit {
     public dialogRef: MatDialogRef<ConfirmComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+  @ViewChild('finalAmount') disc_amount: ElementRef;
   radioValue;
   initAmount;
   confirmPafeInfo = {
@@ -18,15 +25,13 @@ export class ConfirmComponentComponent implements OnInit {
     discountType: ' this.data.discountType',
   };
   ngOnInit() {
-    // console.log(this.data);
     this.initAmount = this.data.amount;
   }
   onNoClick(): void {
-    // console.log(this.data);
     this.dialogRef.close();
   }
   radioChange(val) {
-    console.log(val);
+    this.disc_amount.nativeElement.value = 0;
     this.radioValue = val;
   }
   onValInp(val) {

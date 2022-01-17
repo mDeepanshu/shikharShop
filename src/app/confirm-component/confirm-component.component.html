@@ -1,5 +1,3 @@
-<div class="heading">PURCHASE</div>
-<hr />
 <div class="container">
   <div class="row">
     <div class="col">DISCOUNT</div>
@@ -30,6 +28,7 @@
         type="number"
         (input)="onValInp(finalAmount.value)"
         #finalAmount
+        [(ngModel)]="confirmPafeInfo.discountAmount"
         class="form-control"
       />
     </div>

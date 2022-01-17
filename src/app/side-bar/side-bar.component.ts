@@ -1,12 +1,6 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  HostListener,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { MainServiceService } from '../main-service.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -16,17 +10,19 @@ import { Router } from '@angular/router';
 export class SideBarComponent implements OnInit {
   date = new Date();
   expired = false;
-  onLink = 0;
   onElement = 0;
   @ViewChild('aForm') aForm: ElementRef | undefined;
-  constructor(private _snackBar: MatSnackBar, private router: Router) {}
-  routesArray = ['', 'additem', 'checkBills'];
-  capital = ['PURCHASE', 'ADD ITEM', 'CHECK BILL`S'];
+  constructor(
+    private _snackBar: MatSnackBar,
+    public mainService: MainServiceService
+  ) {}
+  routesArray = ['', 'purchase', 'additem', 'checkBills'];
+  capital = ['HOME', 'PURCHASE', 'ADD ITEM', 'CHECK BILL`S'];
   ngOnInit() {
     const d = new Date();
     d.setMonth(7);
     d.setDate(30);
-    d.setFullYear(2022)
+    d.setFullYear(2022);
     if (d.getTime() - this.date.getTime() <= 0) {
       this.expired = true;
       this._snackBar.open('Date Expired', 'Close');
@@ -36,6 +32,6 @@ export class SideBarComponent implements OnInit {
   }
   //
   linkChange(r: any) {
-    this.onLink = r;
+    this.mainService.onLink = r;
   }
 }
