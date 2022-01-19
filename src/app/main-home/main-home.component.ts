@@ -11,12 +11,6 @@ export class MainHomeComponent implements OnInit {
   @ViewChild('label') customNaming: ElementRef;
 
   ngOnInit() {}
-  // timing = {
-  //   indoor: [],
-  //   outdoor: [],
-  //   pickup: [],
-  //   custom: [],
-  // };
   addTab(type) {
     this.rearrange_onAdd(type);
   }

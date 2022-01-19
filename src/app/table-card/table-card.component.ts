@@ -49,6 +49,7 @@ export class TableCardComponent implements OnInit, OnDestroy {
     }
   }
   close() {
+    this.mainService.deleteTable(this.space, this.number - 1);
     this.componentClosed = true;
     localStorage.removeItem(`startTime/${this.space}/${this.number}`);
     this.clossing.emit(this.number);

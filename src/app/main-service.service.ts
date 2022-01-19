@@ -195,9 +195,7 @@ export class MainServiceService {
           this.printArray.next(this.purchaseDetail);
           this.toPrintKot.next(false);
           this.addPurchase(this.purchaseDetail).then((data) => {
-            this.amount[onSpace][onTab] = 0;
-            this.itemList_inSpace[onSpace].arraySqr[onTab] = [];
-            this.itemList_inSpace[onSpace].kotPrint[onTab] = [];
+            this.deleteTable(onSpace, onTab - 1);
             res('submitted');
             window.print();
             this.toPrintKot.next(true);
@@ -205,5 +203,13 @@ export class MainServiceService {
         }
       });
     });
+  }
+  deleteTable(onSpace, onTab) {
+    console.log(onSpace, onTab);
+    this.amount[onSpace].splice(onTab, 1);
+    this.itemList_inSpace[onSpace].arraySqr.splice(onTab, 1);
+    this.itemList_inSpace[onSpace].kotPrint.splice(onTab, 1);
+    this.parentTab[onSpace].splice(onTab, 1);
+    console.log(this.itemList_inSpace[onSpace]);
   }
 }
